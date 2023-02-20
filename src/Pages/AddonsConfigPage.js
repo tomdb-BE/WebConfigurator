@@ -90,7 +90,17 @@ const schema = yup.object().shape({
 	I2CAnalog1219InputEnabled: yup.number().required().label('I2C Analog1219 Input Enabled'),
 	JSliderInputEnabled: yup.number().required().label('JSlider Input Enabled'),
 	ReverseInputEnabled: yup.number().required().label('Reverse Input Enabled'),
-	TurboInputEnabled: yup.number().required().label('Turbo Input Enabled')
+	TurboInputEnabled: yup.number().required().label('Turbo Input Enabled'),
+	startLedsAddonEnabled: yup.number().required().label('Start LEDs Add-On Enabled'),
+	startLedsStartPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 1'),
+	startLedsStartPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 2'),
+	startLedsStartPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
+	startLedsStartPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
+	startLedsCoinPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 1'),
+	startLedsCoinPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
+	startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
+	startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
+	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),
 });
 
 const defaultValues = {
@@ -126,7 +136,17 @@ const defaultValues = {
 	I2CAnalog1219InputEnabled: 0,
 	JSliderInputEnabled: 0,
 	ReverseInputEnabled: 0,
-	TurboInputEnabled: 0
+	TurboInputEnabled: 0,
+	startLedsAddonEnabled: 0,
+	startLedsStartPin1: -1,
+	startLedsStartPin2: -1,
+	startLedsStartPin3: -1,
+	startLedsStartPin4: -1,
+	startLedsCoinPin1: -1,
+	startLedsCoinPin2: -1,
+	startLedsCoinPin3: -1,
+	startLedsCoinPin4: -1,
+	startLedsMarqueePin: -1
 };
 
 const REVERSE_ACTION = [
@@ -208,7 +228,7 @@ const FormContext = () => {
 			values.AnalogInputEnabled = parseInt(values.AnalogInputEnabled);
 		if (!!values.BoardLedAddonEnabled)
 			values.BoardLedAddonEnabled = parseInt(values.BoardLedAddonEnabled);
-		if (!!values.BuzzerSpeakerAddonEnabled)
+		if (!!values.BuzzerSpeakerAddonEnabled)		
 			values.BuzzerSpeakerAddonEnabled = parseInt(values.BuzzerSpeakerAddonEnabled);
 		if (!!values.BootselButtonAddonEnabled)
 			values.BootselButtonAddonEnabled = parseInt(values.BootselButtonAddonEnabled);
@@ -222,6 +242,26 @@ const FormContext = () => {
 			values.ReverseInputEnabled = parseInt(values.ReverseInputEnabled);
 		if (!!values.TurboInputEnabled)
 			values.TurboInputEnabled = parseInt(values.TurboInputEnabled);
+		if (!!values.startLedsAddonEnabled)
+			values.startLedsAddonEnabled = parseInt(values.startLedsAddonEnabled);
+		if (!!values.startLedsStartPin1)
+			values.startLedsStartPin1 = parseInt(values.startLedsStartPin1);
+		if (!!values.startLedsStartPin2)
+			values.startLedsStartPin2 = parseInt(values.startLedsStartPin2);
+		if (!!values.startLedsStartPin3)
+			values.startLedsStartPin3 = parseInt(values.startLedsStartPin3);
+		if (!!values.startLedsStartPin4)
+			values.startLedsStartPin4 = parseInt(values.startLedsStartPin4);
+		if (!!values.startLedsCoinPin1)
+			values.startLedsCoinPin1 = parseInt(values.startLedsCoinPin1);
+		if (!!values.startLedsCoinPin2)
+			values.startLedsCoinPin2 = parseInt(values.startLedsCoinPin2);
+		if (!!values.startLedsCoinPin3)
+			values.startLedsCoinPin3 = parseInt(values.startLedsCoinPin3);
+		if (!!values.startLedsCoinPin4)
+			values.startLedsCoinPin4 = parseInt(values.startLedsCoinPin4);
+		if (!!values.startLedsMarqueePin)
+			values.startLedsMarqueePin = parseInt(values.startLedsMarqueePin);							
 	}, [values, setValues]);
 
 	return null;
@@ -753,6 +793,136 @@ export default function AddonsConfigPage() {
 							onChange={(e) => {handleCheckbox("BuzzerSpeakerAddonEnabled", values); handleChange(e);}}
 						/>
 					</Section>
+					<Section title="Start Leds">
+						<div
+							id="startLedsAddonOptions"
+							hidden={!values.startLedsAddonEnabled}>
+						<Row class="mb-3">	
+							<FormControl type="number"
+								name="startLedsStartPin1"
+								label="Start button LED pin Player 1"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsStartPin1}
+								error={errors.startLedsStartPin1}
+								isInvalid={errors.startLedsStartPin1}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormControl type="number"
+								name="startLedsStartPin2"
+								label="Start button LED pin Player 2"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsStartPin2}
+								error={errors.startLedsStartPin2}
+								isInvalid={errors.startLedsStartPin2}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormControl type="number"
+								name="startLedsStartPin3"
+								label="Start button LED pin Player 3"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsStartPin3}
+								error={errors.startLedsStartPin3}
+								isInvalid={errors.startLedsStartPin3}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormControl type="number"
+								name="startLedsStartPin4"
+								label="Start button LED pin Player 4"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsStartPin4}
+								error={errors.startLedsStartPin4}
+								isInvalid={errors.startLedsStartPin4}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+						</Row>
+						<Row class="mb-3">																
+							<FormControl type="number"
+								name="startLedsCoinPin1"
+								label="Coin button LED pin Player 1"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsCoinPin1}
+								error={errors.startLedsCoinPin1}
+								isInvalid={errors.startLedSCoinPin1}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>							
+							<FormControl type="number"
+								name="startLedsCoinPin2"
+								label="Coin button LED pin Player 2"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsCoinPin2}
+								error={errors.startLedsCoinPin2}
+								isInvalid={errors.startLedsCoinPin2}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormControl type="number"
+								name="startLedsCoinPin3"
+								label="Coin button LED pin Player 3"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsCoinPin3}
+								error={errors.startLedsCoinPin3}
+								isInvalid={errors.startLedsCoinPin3}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormControl type="number"
+								name="startLedsCoinPin4"
+								label="Coin button LED pin Player 4"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsCoinPin4}
+								error={errors.startLedsCoinPin4}
+								isInvalid={errors.startLedsCoinPin4}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>											
+						</Row>
+						<Row class="mb-3">
+						<FormControl type="number"
+								name="startLedsMarqueePin"
+								label="Marquee LED Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsCoinPin4}
+								error={errors.startLedsCoinPin4}
+								isInvalid={errors.startLedsCoinPin4}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>	
+						</Row>						
+						</div>
+						<FormCheck
+							label="Enabled"
+							type="switch"
+							id="startLedsAddonButton"
+							reverse="true"
+							error={false}
+							isInvalid={false}
+							checked={Boolean(values.startLedsAddonEnabled)}
+							onChange={(e) => {handleCheckbox("startLedsAddonEnabled", values); handleChange(e);}}
+						/>
+					</Section>					
 					<div className="mt-3">
 						<Button type="submit">Save</Button>
 						{saveMessage ? <span className="alert">{saveMessage}</span> : null}
