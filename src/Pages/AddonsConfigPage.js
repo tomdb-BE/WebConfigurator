@@ -100,7 +100,22 @@ const schema = yup.object().shape({
 	startLedsCoinPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
 	startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
 	startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
-	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),
+	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),	
+	startLedsExtStartPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Start Button Pin'),
+	startLedsExtCoinPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Coin Button Pin'),
+	startLedsStartBrightness: yup.number().required().min(0).max(100).label('Start LED Brightness'),
+	startLedsCoinBrightness: yup.number().required().min(0).max(100).label('Coin LED Brightness'),
+	startLedsMarqueeBrightness: yup.number().required().min(0).max(100).label('Marquee LED Brightness'),
+	pcControlAddonEnabled: yup.number().required().label('PC Control Add-On Enabled'),
+	pcControlPowerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Pin'),
+	pcControlPowerSwitchPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Switch Pin'),
+	z680AddonEnabled: yup.number().required().label('Z680 Add-On Enabled'),
+	z680PowerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power Pin'),
+	z680PowerStatePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power State Pin'),
+	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
+	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin'),
+	z680MutePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Mute Pin'),
+
 });
 
 const defaultValues = {
@@ -146,7 +161,21 @@ const defaultValues = {
 	startLedsCoinPin2: -1,
 	startLedsCoinPin3: -1,
 	startLedsCoinPin4: -1,
-	startLedsMarqueePin: -1
+	startLedsExtCoinPin: -1,
+	startLedsExtStartPin: -1,
+	startLedsMarqueePin: -1,
+	startLedsStartBrightness: -1,
+	startLedsCoinBrightness: -1,
+	startLedsMarqueeBrightness: -1,
+	pcControlAddonEnabled: -1,
+	pcControlPowerPin: -1,
+	pcControlPowerSwitchPin: -1,
+	z680AddonEnabled: -1,
+	z680PowerPin: -1,
+	z680PowerStatePin: -1,
+	z680VolumeUpPin: -1,
+	z680VolumeDownPin: -1,
+	z680MutePin: -1
 };
 
 const REVERSE_ACTION = [
@@ -260,8 +289,36 @@ const FormContext = () => {
 			values.startLedsCoinPin3 = parseInt(values.startLedsCoinPin3);
 		if (!!values.startLedsCoinPin4)
 			values.startLedsCoinPin4 = parseInt(values.startLedsCoinPin4);
+		if (!!values.startLedsExtStartPin)
+			values.startLedsExtStartPin = parseInt(values.startLedsExtStartPin);
+		if (!!values.startLedsExtCoinPin)
+			values.startLedsExtCoinPin = parseInt(values.startLedsExtCoinPin);
 		if (!!values.startLedsMarqueePin)
-			values.startLedsMarqueePin = parseInt(values.startLedsMarqueePin);							
+			values.startLedsMarqueePin = parseInt(values.startLedsMarqueePin);
+		if (!!values.startLedsStartBrightness)
+			values.startLedsStartBrightness = parseInt(values.startLedsStartBrightness);
+		if (!!values.startLedsCoinBrightness)
+			values.startLedsCoinBrightness = parseInt(values.startLedsCoinBrightness);
+		if (!!values.startLedsMarqueeBrightness)
+			values.startLedsMarqueeBrightness = parseInt(values.startLedsMarqueeBrightness);			
+		if (!!values.pcControlAddonEnabled)
+			values.pcControlAddonEnabled = parseInt(values.pcControlAddonEnabled);
+		if (!!values.pcControlPowerPin)
+			values.pcControlPowerPin = parseInt(values.pcControlPowerPin);
+		if (!!values.pcControlPowerSwitchPin)
+			values.pcControlPowerSwitchPin = parseInt(values.pcControlPowerSwitchPin);
+		if (!!values.z680AddonEnabled)
+			values.z680AddonEnabled = parseInt(values.z680AddonEnabled);
+		if (!!values.z680PowerPin)
+			values.z680PowerPin = parseInt(values.z680PowerPin);
+		if (!!values.z680PowerStatePin)
+			values.z680PowerStatePin = parseInt(values.z680PowerStatePin);
+		if (!!values.z680VolumeUpPin)
+			values.z680VolumeUpPin = parseInt(values.z680VolumeUpPin);
+		if (!!values.z680VolumeDownPin)
+			values.z680VolumeDownPin = parseInt(values.z680VolumeDownPin);
+		if (!!values.z680MutePin)
+			values.z680MutePin = parseInt(values.z680MutePin);				
 	}, [values, setValues]);
 
 	return null;
@@ -903,14 +960,78 @@ export default function AddonsConfigPage() {
 								label="Marquee LED Pin"
 								className="form-control-sm"
 								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsCoinPin4}
-								error={errors.startLedsCoinPin4}
-								isInvalid={errors.startLedsCoinPin4}
+								value={values.startLedsMarqueePin}
+								error={errors.startLedsMarqueePin}
+								isInvalid={errors.startLedsMarqueePin}
 								onChange={handleChange}
 								min={-1}
 								max={29}
 							/>	
-						</Row>						
+						</Row>
+						<Row class="mb-3">
+						<FormControl type="number"
+								name="startLedsStartBrightness"
+								label="Start LED Brightness"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsStartBrightness}
+								error={errors.startLedsStartBrightness}
+								isInvalid={errors.startLedsStartBrightness}
+								onChange={handleChange}
+								min={0}
+								max={100}
+							/>
+						<FormControl type="number"
+								name="startLedsCoinBrightness"
+								label="Marquee LED Brightness"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsMarqueeBrightness}
+								error={errors.startLedsMarqueeBrightness}
+								isInvalid={errors.startLedsMarqueeBrightness}
+								onChange={handleChange}
+								min={0}
+								max={100}
+							/>							
+						<FormControl type="number"
+								name="startLedsMarqueeBrightness"
+								label="Marquee Brightness"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsMarqueeBrightness}
+								error={errors.startLedsMarqueeBrightness}
+								isInvalid={errors.startLedsMarqueeBrightness}
+								onChange={handleChange}
+								min={0}
+								max={100}
+							/>
+						</Row>
+						<Row class="mb-3">														
+						<FormControl type="number"
+								name="startLedsExtStartPin"
+								label="External Start Button Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsExtStartPin}
+								error={errors.startLedsExtStartPin}
+								isInvalid={errors.startLedsExtStartPin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+						<FormControl type="number"
+								name="startLedsExtCoinPin"
+								label="External Coin Button Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.startLedsExtCoinPin}
+								error={errors.startLedsExtCoinPin}
+								isInvalid={errors.startLedsExtCoinPin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>									
+						</Row>												
 						</div>
 						<FormCheck
 							label="Enabled"
@@ -922,7 +1043,129 @@ export default function AddonsConfigPage() {
 							checked={Boolean(values.startLedsAddonEnabled)}
 							onChange={(e) => {handleCheckbox("startLedsAddonEnabled", values); handleChange(e);}}
 						/>
-					</Section>					
+					</Section>	
+					<Section title="PC Control">
+						<div
+							id="pcControlAddonOptions"
+							hidden={!values.pcControlAddonEnabled}>
+					<Row class="mb-3">														
+						<FormControl type="number"
+								name="pcControlPowerPin"
+								label="PC Control Power Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.pcControlPowerPin}
+								error={errors.pcControlPowerPin}
+								isInvalid={errors.pcControlPowerPin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+						<FormControl type="number"
+								name="pcControlPowerSwitchPin"
+								label="PC Control Power Switch Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.pcControlPowerSwitchPin}
+								error={errors.pcControlPowerSwitchPin}
+								isInvalid={errors.pcControlPowerSwitchPin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>									
+						</Row>												
+						</div>
+						<FormCheck
+							label="Enabled"
+							type="switch"
+							id="pcControlAddonButton"
+							reverse="true"
+							error={false}
+							isInvalid={false}
+							checked={Boolean(values.pcControlAddonEnabled)}
+							onChange={(e) => {handleCheckbox("pcControlAddonEnabled", values); handleChange(e);}}
+						/>
+					</Section>
+					<Section title="Z680">
+						<div
+							id="z680AddonOptions"
+							hidden={!values.z680AddonEnabled}>
+					<Row class="mb-3">														
+						<FormControl type="number"
+								name="z680PowerPin"
+								label="Z680 Power Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.z680PowerPin}
+								error={errors.z680PowerPin}
+								isInvalid={errors.z680PowerPin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+						<FormControl type="number"
+								name="z680PowerStatePin"
+								label="Z680 Power State Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.z680PowerStatePin}
+								error={errors.z680PowerStatePin}
+								isInvalid={errors.z680PowerStatePin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+						<FormControl type="number"
+								name="z680MutePin"
+								label="Z680 Mute Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.z680MutePin}
+								error={errors.z680MutePin}
+								isInvalid={errors.z680MutePin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+					</Row>
+					<Row class="mb-3">														
+						<FormControl type="number"
+								name="z680VolumeUpPin"
+								label="Z680 Volume Up Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.z680VolumeUpPin}
+								error={errors.z680VolumeUpPin}
+								isInvalid={errors.z680VolumeUpPin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>							
+						<FormControl type="number"
+								name="z680VolumeDownPin"
+								label="Z680 Volume Down Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.z680VolumeDownPin}
+								error={errors.z680VolumeDownPin}
+								isInvalid={errors.z680VolumeDownPin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>																								
+						</Row>												
+						</div>
+						<FormCheck
+							label="Enabled"
+							type="switch"
+							id="z680AddonButton"
+							reverse="true"
+							error={false}
+							isInvalid={false}
+							checked={Boolean(values.z680AddonEnabled)}
+							onChange={(e) => {handleCheckbox("z680AddonEnabled", values); handleChange(e);}}
+						/>
+					</Section>								
 					<div className="mt-3">
 						<Button type="submit">Save</Button>
 						{saveMessage ? <span className="alert">{saveMessage}</span> : null}
