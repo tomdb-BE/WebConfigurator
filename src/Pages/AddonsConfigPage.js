@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Row, FormCheck } from 'react-bootstrap';
+import { Button, Form, Row, Col, FormCheck } from 'react-bootstrap';
 import { Formik, useFormikContext } from 'formik';
 import * as yup from 'yup';
 import FormControl from '../Components/FormControl';
@@ -65,7 +65,7 @@ const schema = yup.object().shape({
 	// eslint-disable-next-line no-template-curly-in-string
 	sliderLSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider LS Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	sliderRSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider RS Pin'),
+	sliderRSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider RS Pin'),	
 	turboShotCount: yup.number().required().min(5).max(30).label('Turbo Shot Count'),
 	// eslint-disable-next-line no-template-curly-in-string
 	reversePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Reverse Pin'),
@@ -86,7 +86,7 @@ const schema = yup.object().shape({
 	// eslint-disable-next-line no-template-curly-in-string
 	dualDirLeftPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Left Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	dualDirRightPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),	
+	dualDirRightPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),
 	dualDirDpadMode : yup.number().required().oneOf(DUAL_STICK_MODES.map(o => o.value)).label('Dual Stick Mode'), 
 	dualDirCombineMode : yup.number().required().oneOf(DUAL_COMBINE_MODES.map(o => o.value)).label('Dual Combination Mode'),
 	// eslint-disable-next-line no-template-curly-in-string
@@ -94,16 +94,21 @@ const schema = yup.object().shape({
 	// eslint-disable-next-line no-template-curly-in-string
  	analogAdcPinY : yup.number().required().test('', '${originalValue} is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin Y'),
 	bootselButtonMap : yup.number().required().oneOf(BUTTON_MASKS.map(o => o.value)).label('BOOTSEL Button Map'),
-	// eslint-disable-next-line no-template-curly-in-string
 	buzzerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Buzzer Pin'),
 	buzzerVolume: yup.number().required().min(0).max(100).label('Buzzer Volume'),
+	// eslint-disable-next-line no-template-curly-in-string
+	extraButtonPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Extra Button Pin'),
+	extraButtonMap : yup.number().required().oneOf(BUTTON_MASKS.map(o => o.value)).label('Extra Button Map'),
+	playerNumber: yup.number().required().min(1).max(4).label('Player Number'),
 	AnalogInputEnabled: yup.number().required().label('Analog Input Enabled'),
 	BoardLedAddonEnabled: yup.number().required().label('Board LED Add-On Enabled'),
 	BuzzerSpeakerAddonEnabled: yup.number().required().label('Buzzer Speaker Add-On Enabled'),
 	BootselButtonAddonEnabled: yup.number().required().label('Boot Select Button Add-On Enabled'),
 	DualDirectionalInputEnabled: yup.number().required().label('Dual Directional Input Enabled'),
+	ExtraButtonAddonEnabled: yup.number().required().label('Extra Button Add-On Enabled'),
 	I2CAnalog1219InputEnabled: yup.number().required().label('I2C Analog1219 Input Enabled'),
 	JSliderInputEnabled: yup.number().required().label('JSlider Input Enabled'),
+	PlayerNumAddonEnabled: yup.number().required().label('Player Number Add-On Enabled'),
 	ReverseInputEnabled: yup.number().required().label('Reverse Input Enabled'),
 	TurboInputEnabled: yup.number().required().label('Turbo Input Enabled'),
 	startLedsAddonEnabled: yup.number().required().label('Start LEDs Add-On Enabled'),
@@ -148,7 +153,7 @@ const schema = yup.object().shape({
 	// eslint-disable-next-line no-template-curly-in-string
 	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin')
+	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin')	
 });
 
 const defaultValues = {
@@ -176,13 +181,18 @@ const defaultValues = {
 	bootselButtonMap: 0,
 	buzzerPin: -1,
 	buzzerVolume: 100,
+	extrabuttonPin: -1,
+	extraButtonMap: 0,
+	playerNumber: 1,
 	AnalogInputEnabled: 0,
 	BoardLedAddonEnabled: 0,
 	BuzzerSpeakerAddonEnabled: 0,
 	BootselButtonAddonEnabled: 0,
 	DualDirectionalInputEnabled: 0,
+	ExtraButtonAddonEnabled: 0,
 	I2CAnalog1219InputEnabled: 0,
 	JSliderInputEnabled: 0,
+	PlayerNumAddonEnabled: 0,
 	ReverseInputEnabled: 0,
 	TurboInputEnabled: 0,
 	startLedsAddonEnabled: 0,
@@ -286,20 +296,30 @@ const FormContext = () => {
 			values.buzzerPin = parseInt(values.buzzerPin);
 		if (!!values.buzzerVolume)
 			values.buzzerVolume = parseInt(values.buzzerVolume);
+		if (!!values.extraButtonMap)
+			values.extraButtonMap = parseInt(values.extraButtonMap);
+		if (!!values.extrabuttonPin)
+			values.extrabuttonPin = parseInt(values.extrabuttonPin);
+		if (!!values.playerNumber)
+			values.playerNumber = parseInt(values.playerNumber);	
 		if (!!values.AnalogInputEnabled)
 			values.AnalogInputEnabled = parseInt(values.AnalogInputEnabled);
 		if (!!values.BoardLedAddonEnabled)
 			values.BoardLedAddonEnabled = parseInt(values.BoardLedAddonEnabled);
-		if (!!values.BuzzerSpeakerAddonEnabled)		
+		if (!!values.BuzzerSpeakerAddonEnabled)
 			values.BuzzerSpeakerAddonEnabled = parseInt(values.BuzzerSpeakerAddonEnabled);
 		if (!!values.BootselButtonAddonEnabled)
 			values.BootselButtonAddonEnabled = parseInt(values.BootselButtonAddonEnabled);
 		if (!!values.DualDirectionalInputEnabled)
 			values.DualDirectionalInputEnabled = parseInt(values.DualDirectionalInputEnabled);
+		if (!!values.ExtraButtonAddonEnabled)
+			values.ExtraButtonAddonEnabled = parseInt(values.ExtraButtonAddonEnabled);
 		if (!!values.I2CAnalog1219InputEnabled)
 			values.I2CAnalog1219InputEnabled = parseInt(values.I2CAnalog1219InputEnabled);
 		if (!!values.JSliderInputEnabled)
 			values.JSliderInputEnabled = parseInt(values.JSliderInputEnabled);
+		if (!!values.PlayerNumAddonEnabled)
+			values.PlayerNumAddonEnabled = parseInt(values.PlayerNumAddonEnabled);
 		if (!!values.ReverseInputEnabled)
 			values.ReverseInputEnabled = parseInt(values.ReverseInputEnabled);
 		if (!!values.TurboInputEnabled)
@@ -351,7 +371,7 @@ const FormContext = () => {
 		if (!!values.z680VolumeUpPin)
 			values.z680VolumeUpPin = parseInt(values.z680VolumeUpPin);
 		if (!!values.z680VolumeDownPin)
-			values.z680VolumeDownPin = parseInt(values.z680VolumeDownPin);			
+			values.z680VolumeDownPin = parseInt(values.z680VolumeDownPin);				
 	}, [values, setValues]);
 
 	return null;
@@ -883,6 +903,79 @@ export default function AddonsConfigPage() {
 							onChange={(e) => {handleCheckbox("BuzzerSpeakerAddonEnabled", values); handleChange(e);}}
 						/>
 					</Section>
+					<Section title="Extra Button Configuration">
+						<div
+							id="ExtraButtonAddonOptions"
+							hidden={!values.ExtraButtonAddonEnabled}>
+							<Row class="mb-3">
+								<FormControl type="number"
+									label="Extra Button Pin"
+									name="extraButtonPin"
+									className="form-select-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.extraButtonPin}
+									error={errors.extraButtonPin}
+									isInvalid={errors.extraButtonPin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>
+								<FormSelect
+									label="Extra Button"
+									name="extraButtonMap"
+									className="form-select-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.extraButtonMap}
+									error={errors.extraButtonMap}
+									isInvalid={errors.extraButtonMap}
+									onChange={handleChange}
+								>
+									{BUTTON_MASKS.map((o, i) => <option key={`extraButtonMap-option-${i}`} value={o.value}>{o.label}</option>)}
+								</FormSelect>
+							</Row>
+						</div>
+						<FormCheck
+							label="Enabled"
+							type="switch"
+							id="ExtraButtonAddonButton"
+							reverse="true"
+							error={false}
+							isInvalid={false}
+							checked={Boolean(values.ExtraButtonAddonEnabled)}
+							onChange={(e) => { handleCheckbox("ExtraButtonAddonEnabled", values); handleChange(e);}}
+						/>
+					</Section>
+					<Section title="Player Number (X-INPUT ONLY)">
+						<div
+							id="PlayerNumAddonOptions"
+							hidden={!values.PlayerNumAddonEnabled}>
+						<p><strong>WARNING: ONLY ENABLE THIS OPTION IF YOU ARE CONNECTING MULTIPLE GP2040-CE DEVICES WITH PLAYER NUMBER ENABLED</strong></p>
+						<Row class="mb-3">
+							<FormControl type="number"
+								label="Player Number"
+								name="playerNumber"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.playerNumber}
+								error={errors.playerNumber}
+								isInvalid={errors.playerNumber}
+								onChange={handleChange}
+								min={1}
+								max={4}
+							/>
+						</Row>
+						</div>
+						<FormCheck
+							label="Enabled"
+							type="switch"
+							id="PlayerNumAddonButton"
+							reverse="true"
+							error={false}
+							isInvalid={false}
+							checked={Boolean(values.PlayerNumAddonEnabled)}
+							onChange={(e) => {handleCheckbox("PlayerNumAddonEnabled", values); handleChange(e);}}
+						/>
+					</Section>
 					<Section title="Start Leds">
 						<div
 							id="startLedsAddonOptions"
@@ -1081,7 +1174,7 @@ export default function AddonsConfigPage() {
 						<div
 							id="pcControlAddonOptions"
 							hidden={!values.pcControlAddonEnabled}>
-					<Row class="mb-3">														
+						<Row class="mb-3">														
 						<FormControl type="number"
 								name="pcControlPowerPin"
 								label="PC Control Power Pin"
@@ -1123,7 +1216,7 @@ export default function AddonsConfigPage() {
 						<div
 							id="z680AddonOptions"
 							hidden={!values.z680AddonEnabled}>
-					<Row class="mb-3">														
+						<Row class="mb-3">														
 						<FormControl type="number"
 								name="z680PowerPin"
 								label="Z680 Power Pin"
@@ -1160,8 +1253,8 @@ export default function AddonsConfigPage() {
 								min={-1}
 								max={29}
 							/>
-					</Row>
-					<Row class="mb-3">														
+						</Row>
+						<Row class="mb-3">														
 						<FormControl type="number"
 								name="z680VolumeUpPin"
 								label="Z680 Volume Up Pin"
@@ -1198,7 +1291,7 @@ export default function AddonsConfigPage() {
 							checked={Boolean(values.z680AddonEnabled)}
 							onChange={(e) => {handleCheckbox("z680AddonEnabled", values); handleChange(e);}}
 						/>
-					</Section>								
+					</Section>					
 					<div className="mt-3">
 						<Button type="submit">Save</Button>
 						{saveMessage ? <span className="alert">{saveMessage}</span> : null}

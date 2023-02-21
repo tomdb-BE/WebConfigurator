@@ -199,8 +199,8 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		z680PowerStatePin: -1,
 		z680MutePin: -1,
 		z680VolumeUpPin: -1,
-		z680VolumeDownPin: -1,			
-		usedPins
+		z680VolumeDownPin: -1,		
+		usedPins,
 	});
 });
 
