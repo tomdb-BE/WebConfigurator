@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap';
-import { Formik, useFormikContext, ErrorMessage, Field } from 'formik';
+import { Formik, useFormikContext, Field } from 'formik';
 import * as yup from 'yup';
 import FormControl from '../Components/FormControl';
 import FormSelect from '../Components/FormSelect';
@@ -92,7 +92,7 @@ const defaultValues = {
 	displaySaverTimeout: 0,
 };
 
-let usedPins = [];
+// let usedPins = [];
 
 const schema = yup.object().shape({
 	enabled: yup.number().label('Enabled?'),

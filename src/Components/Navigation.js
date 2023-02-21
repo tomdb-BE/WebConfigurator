@@ -17,7 +17,7 @@ const Navigation = (props) => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => { setIsRebooting(null); setShow(true); }
 	const handleReboot = async () => {
-		if (isRebooting == false) { setShow(false); return; }
+		if (isRebooting === false) { setShow(false); return; }
 		setIsRebooting(true);
 		await WebApi.reboot();
 		setIsRebooting(false);
@@ -76,7 +76,7 @@ const Navigation = (props) => {
 				<Modal.Header closeButton>
 					<Modal.Title>Reboot controller?</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>{ isRebooting == false ? "Done rebooting, this browser tab can now be closed."
+				<Modal.Body>{ isRebooting === false ? "Done rebooting, this browser tab can now be closed."
 								: "Reboot to regular controller mode to play?" }</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>

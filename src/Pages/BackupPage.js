@@ -73,7 +73,7 @@ export default function BackupPage() {
 		for (const [key, func] of Object.entries(API_BINDING)) {
 			const values = options[key];
 			if (values) {
-				const result = await func.set(values);
+				await func.set(values);
 			}
 		}
 	}
@@ -90,7 +90,7 @@ export default function BackupPage() {
 		for (const [key, value] of Object.entries(checkValues)) {
 			if (key.match("export_") && value) {
 				let skey = key.slice(7, key.length);
-				if (optionState[skey] != undefined || optionState[skey] != null) {
+				if (optionState[skey] !== undefined || optionState[skey] != null) {
 					exportData[skey] = optionState[skey];
 				}
 			}
@@ -123,7 +123,7 @@ export default function BackupPage() {
 			setNoticeMessage(`Unknown browser error, missing event data!`);
 			return;
 		}
-		if (input.files.length == 0) {
+		if (input.files.length === 0) {
 			setNoticeMessage(`No files are loaded.`);
 			return;
 		}
@@ -160,7 +160,7 @@ export default function BackupPage() {
 				for (const [key, value] of Object.entries(checkValues)) {
 					if (key.match("import_") && value) {
 						let skey = key.slice(7, key.length);
-						if (newData[skey] != undefined || newData[skey] != null) {
+						if (newData[skey] !== undefined || newData[skey] != null) {
 							filteredData[skey] = newData[skey];
 						}
 					}

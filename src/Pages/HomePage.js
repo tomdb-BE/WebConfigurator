@@ -22,7 +22,7 @@ export default function HomePage() {
 		.catch(console.error);
 		
 		WebApi.getMemoryReport().then(response => {
-			const unit = 1024;
+			//const unit = 1024;
 			const {totalFlash, usedFlash, staticAllocs, totalHeap, usedHeap} = response;
 			setMemoryReport({
 				totalFlash: toKB(totalFlash),
@@ -66,8 +66,8 @@ export default function HomePage() {
 					{memoryReport &&
 						<div>
 							<strong>Memory (KB)</strong>
-							<div>Flash: {memoryReport.usedFlash} // {memoryReport.totalFlash} ({memoryReport.percentageFlash}%)</div>
-							<div>Heap: {memoryReport.usedHeap} // {memoryReport.totalHeap} ({memoryReport.percentageHeap}%)</div>
+							<div>Flash: {memoryReport.usedFlash} // {memoryReport.totalFlash} ({memoryReport.percentageFlash}&percnt;)</div>
+							<div>Heap: {memoryReport.usedHeap} // {memoryReport.totalHeap} ({memoryReport.percentageHeap}&percnt;)</div>
 							<div>Static Allocations: {memoryReport.staticAllocs}</div>
 						</div>
 					}

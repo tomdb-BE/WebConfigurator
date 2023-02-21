@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Row, Col, FormCheck } from 'react-bootstrap';
+import { Button, Form, Row, FormCheck } from 'react-bootstrap';
 import { Formik, useFormikContext } from 'formik';
 import * as yup from 'yup';
 import FormControl from '../Components/FormControl';
@@ -58,29 +58,29 @@ const BUTTON_MASKS = [
 ]
 
 const schema = yup.object().shape({
-	turboPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Turbo Pin'),
-	turboPinLED: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Turbo Pin LED'),
-	sliderLSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider LS Pin'),
-	sliderRSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider RS Pin'),
+	turboPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Turbo Pin'),
+	turboPinLED: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Turbo Pin LED'),
+	sliderLSPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Slider LS Pin'),
+	sliderRSPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Slider RS Pin'),
 	turboShotCount: yup.number().required().min(5).max(30).label('Turbo Shot Count'),
-	reversePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Reverse Pin'),
-	reversePinLED: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Reverse Pin LED'),
-	i2cAnalog1219SDAPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('I2C Analog1219 SDA Pin'),
-	i2cAnalog1219SCLPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('I2C Analog1219 SCL Pin'),
+	reversePin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Reverse Pin'),
+	reversePinLED: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Reverse Pin LED'),
+	i2cAnalog1219SDAPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('I2C Analog1219 SDA Pin'),
+	i2cAnalog1219SCLPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('I2C Analog1219 SCL Pin'),
 	i2cAnalog1219Block: yup.number().required().oneOf(I2C_BLOCKS.map(o => o.value)).label('I2C Analog1219 Block'),
 	i2cAnalog1219Speed: yup.number().required().label('I2C Analog1219 Speed'),
 	i2cAnalog1219Address: yup.number().required().label('I2C Analog1219 Address'),
 	onBoardLedMode: yup.number().required().oneOf(ON_BOARD_LED_MODES.map(o => o.value)).label('On-Board LED Mode'),
-	dualDirUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Up Pin'),
-	dualDirDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Down Pin'),
-	dualDirLeftPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Left Pin'),
-	dualDirRightPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),
+	dualDirUpPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Dual Directional Up Pin'),
+	dualDirDownPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Dual Directional Down Pin'),
+	dualDirLeftPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Dual Directional Left Pin'),
+	dualDirRightPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),
 	dualDirDpadMode : yup.number().required().oneOf(DUAL_STICK_MODES.map(o => o.value)).label('Dual Stick Mode'), 
 	dualDirCombineMode : yup.number().required().oneOf(DUAL_COMBINE_MODES.map(o => o.value)).label('Dual Combination Mode'),
 	analogAdcPinX : yup.number().required().test('', '${originalValue} is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin X'),
  	analogAdcPinY : yup.number().required().test('', '${originalValue} is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin Y'),
 	bootselButtonMap : yup.number().required().oneOf(BUTTON_MASKS.map(o => o.value)).label('BOOTSEL Button Map'),
-	buzzerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Buzzer Pin'),
+	buzzerPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Buzzer Pin'),
 	buzzerVolume: yup.number().required().min(0).max(100).label('Buzzer Volume'),
 	AnalogInputEnabled: yup.number().required().label('Analog Input Enabled'),
 	BoardLedAddonEnabled: yup.number().required().label('Board LED Add-On Enabled'),
@@ -92,29 +92,29 @@ const schema = yup.object().shape({
 	ReverseInputEnabled: yup.number().required().label('Reverse Input Enabled'),
 	TurboInputEnabled: yup.number().required().label('Turbo Input Enabled'),
 	startLedsAddonEnabled: yup.number().required().label('Start LEDs Add-On Enabled'),
-	startLedsStartPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 1'),
-	startLedsStartPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 2'),
-	startLedsStartPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
-	startLedsStartPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
-	startLedsCoinPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 1'),
-	startLedsCoinPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
-	startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
-	startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
-	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),	
-	startLedsExtStartPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Start Button Pin'),
-	startLedsExtCoinPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Coin Button Pin'),
+	startLedsStartPin1: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 1'),
+	startLedsStartPin2: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 2'),
+	startLedsStartPin3: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
+	startLedsStartPin4: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
+	startLedsCoinPin1: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 1'),
+	startLedsCoinPin2: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
+	startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
+	startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
+	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),	
+	startLedsExtStartPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('External Start Button Pin'),
+	startLedsExtCoinPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('External Coin Button Pin'),
 	startLedsStartBrightness: yup.number().required().min(0).max(100).label('Start LED Brightness'),
 	startLedsCoinBrightness: yup.number().required().min(0).max(100).label('Coin LED Brightness'),
 	startLedsMarqueeBrightness: yup.number().required().min(0).max(100).label('Marquee LED Brightness'),
 	pcControlAddonEnabled: yup.number().required().label('PC Control Add-On Enabled'),
-	pcControlPowerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Pin'),
-	pcControlPowerSwitchPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Switch Pin'),
+	pcControlPowerPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('PC Control Power Pin'),
+	pcControlPowerSwitchPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('PC Control Power Switch Pin'),
 	z680AddonEnabled: yup.number().required().label('Z680 Add-On Enabled'),
-	z680PowerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power Pin'),
-	z680PowerStatePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power State Pin'),
-	z680MutePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Mute Pin'),
-	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
-	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin'),	
+	z680PowerPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Z680 Power Pin'),
+	z680PowerStatePin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Z680 Power State Pin'),
+	z680MutePin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Z680 Mute Pin'),
+	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
+	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', `${originalValue} is already assigned!`, (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin'),	
 
 });
 
@@ -175,7 +175,7 @@ const defaultValues = {
 	z680PowerStatePin: -1,
 	z680MutePin: -1,
 	z680VolumeUpPin: -1,
-	z680VolumeDownPin: -1,	
+	z680VolumeDownPin: -1
 };
 
 const REVERSE_ACTION = [
@@ -313,12 +313,12 @@ const FormContext = () => {
 			values.z680PowerPin = parseInt(values.z680PowerPin);
 		if (!!values.z680PowerStatePin)
 			values.z680PowerStatePin = parseInt(values.z680PowerStatePin);
+		if (!!values.z680MutePin)
+			values.z680MutePin = parseInt(values.z680MutePin);			
 		if (!!values.z680VolumeUpPin)
 			values.z680VolumeUpPin = parseInt(values.z680VolumeUpPin);
 		if (!!values.z680VolumeDownPin)
-			values.z680VolumeDownPin = parseInt(values.z680VolumeDownPin);
-		if (!!values.z680MutePin)
-			values.z680MutePin = parseInt(values.z680MutePin);				
+			values.z680VolumeDownPin = parseInt(values.z680VolumeDownPin);			
 	}, [values, setValues]);
 
 	return null;
