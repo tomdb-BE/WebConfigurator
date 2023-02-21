@@ -66,8 +66,10 @@ export default function HomePage() {
 					{memoryReport &&
 						<div>
 							<strong>Memory (KB)</strong>
-							<div>Flash: {memoryReport.usedFlash} // {memoryReport.totalFlash} ({memoryReport.percentageFlash})%</div>
-							<div>Heap: {memoryReport.usedHeap} // {memoryReport.totalHeap} ({memoryReport.percentageHeap})%</div>
+							// eslint-disable-next-line
+							<div>Flash: {memoryReport.usedFlash} // {memoryReport.totalFlash} ({memoryReport.percentageFlash}%)</div>
+							// eslint-disable-next-line
+							<div>Heap: {memoryReport.usedHeap} // {memoryReport.totalHeap} ({memoryReport.percentageHeap}%)</div>
 							<div>Static Allocations: {memoryReport.staticAllocs}</div>
 						</div>
 					}

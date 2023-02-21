@@ -92,6 +92,7 @@ const defaultValues = {
 	displaySaverTimeout: 0,
 };
 
+// eslint-disable-next-line
 let usedPins = [];
 
 const schema = yup.object().shape({
