@@ -43,8 +43,7 @@ export default function HomePage() {
 				setLatestTag(sortedData[0].tag_name);
 			})
 			.catch(console.error);
-	}, []);
-	// eslint-disable-next-line
+	}, []);	
 	return (
 		<div>
 			<h1>Welcome to the GP2040-CE Web Configurator!</h1>
@@ -65,8 +64,10 @@ export default function HomePage() {
 						</div>}</p>
 					{memoryReport &&
 						<div>
-							<strong>Memory (KB)</strong>							
+							<strong>Memory (KB)</strong>
+							// eslint-disable-next-line												
 							<div>Flash: {memoryReport.usedFlash} // {memoryReport.totalFlash} ({memoryReport.percentageFlash}%)</div>
+							// eslint-disable-next-line
 							<div>Heap: {memoryReport.usedHeap} // {memoryReport.totalHeap} ({memoryReport.percentageHeap}%)</div>
 							<div>Static Allocations: {memoryReport.staticAllocs}</div>
 						</div>
