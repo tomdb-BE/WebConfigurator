@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Row, Col, FormCheck } from 'react-bootstrap';
+import { Button, Form, Row, FormCheck } from 'react-bootstrap';
 import { Formik, useFormikContext } from 'formik';
 import * as yup from 'yup';
 import FormControl from '../Components/FormControl';
@@ -18,6 +18,7 @@ const ON_BOARD_LED_MODES = [
 	{ label: 'Input Test', value: 2 }
 ];
 
+/*
 const DUAL_STICK_MODES = [
 	{ label: 'D-Pad', value: 0 },
 	{ label: 'Left Analog', value: 1 },
@@ -30,6 +31,7 @@ const DUAL_COMBINE_MODES = [
 	{ label: 'Dual Directional', value: 2 },
 	{ label: 'None', value: 3 }
 ];
+*/
 
 const ANALOG_PINS = [
 	-1,26,27,28
@@ -65,7 +67,7 @@ const schema = yup.object().shape({
 	// eslint-disable-next-line no-template-curly-in-string
 	sliderLSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider LS Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	sliderRSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider RS Pin'),	
+	sliderRSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider RS Pin'),
 	turboShotCount: yup.number().required().min(5).max(30).label('Turbo Shot Count'),
 	// eslint-disable-next-line no-template-curly-in-string
 	reversePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Reverse Pin'),
@@ -80,35 +82,30 @@ const schema = yup.object().shape({
 	i2cAnalog1219Address: yup.number().required().label('I2C Analog1219 Address'),
 	onBoardLedMode: yup.number().required().oneOf(ON_BOARD_LED_MODES.map(o => o.value)).label('On-Board LED Mode'),
 	// eslint-disable-next-line no-template-curly-in-string
-	dualDirUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Up Pin'),
+	//dualDirUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Up Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	dualDirDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Down Pin'),
+	//dualDirDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Down Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	dualDirLeftPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Left Pin'),
+	//dualDirLeftPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Left Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	dualDirRightPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),
-	dualDirDpadMode : yup.number().required().oneOf(DUAL_STICK_MODES.map(o => o.value)).label('Dual Stick Mode'), 
-	dualDirCombineMode : yup.number().required().oneOf(DUAL_COMBINE_MODES.map(o => o.value)).label('Dual Combination Mode'),
+	//dualDirRightPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),	
+	//dualDirDpadMode : yup.number().required().oneOf(DUAL_STICK_MODES.map(o => o.value)).label('Dual Stick Mode'), 
+	//dualDirCombineMode : yup.number().required().oneOf(DUAL_COMBINE_MODES.map(o => o.value)).label('Dual Combination Mode'),
 	// eslint-disable-next-line no-template-curly-in-string
 	analogAdcPinX : yup.number().required().test('', '${originalValue} is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin X'),
 	// eslint-disable-next-line no-template-curly-in-string
  	analogAdcPinY : yup.number().required().test('', '${originalValue} is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin Y'),
 	bootselButtonMap : yup.number().required().oneOf(BUTTON_MASKS.map(o => o.value)).label('BOOTSEL Button Map'),
+	// eslint-disable-next-line no-template-curly-in-string
 	buzzerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Buzzer Pin'),
 	buzzerVolume: yup.number().required().min(0).max(100).label('Buzzer Volume'),
-	// eslint-disable-next-line no-template-curly-in-string
-	extraButtonPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Extra Button Pin'),
-	extraButtonMap : yup.number().required().oneOf(BUTTON_MASKS.map(o => o.value)).label('Extra Button Map'),
-	playerNumber: yup.number().required().min(1).max(4).label('Player Number'),
 	AnalogInputEnabled: yup.number().required().label('Analog Input Enabled'),
 	BoardLedAddonEnabled: yup.number().required().label('Board LED Add-On Enabled'),
 	BuzzerSpeakerAddonEnabled: yup.number().required().label('Buzzer Speaker Add-On Enabled'),
 	BootselButtonAddonEnabled: yup.number().required().label('Boot Select Button Add-On Enabled'),
-	DualDirectionalInputEnabled: yup.number().required().label('Dual Directional Input Enabled'),
-	ExtraButtonAddonEnabled: yup.number().required().label('Extra Button Add-On Enabled'),
+	//DualDirectionalInputEnabled: yup.number().required().label('Dual Directional Input Enabled'),
 	I2CAnalog1219InputEnabled: yup.number().required().label('I2C Analog1219 Input Enabled'),
 	JSliderInputEnabled: yup.number().required().label('JSlider Input Enabled'),
-	PlayerNumAddonEnabled: yup.number().required().label('Player Number Add-On Enabled'),
 	ReverseInputEnabled: yup.number().required().label('Reverse Input Enabled'),
 	TurboInputEnabled: yup.number().required().label('Turbo Input Enabled'),
 	startLedsAddonEnabled: yup.number().required().label('Start LEDs Add-On Enabled'),
@@ -117,17 +114,17 @@ const schema = yup.object().shape({
 	// eslint-disable-next-line no-template-curly-in-string
 	startLedsStartPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 2'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsStartPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
+	//startLedsStartPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsStartPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
+	//startLedsStartPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
 	// eslint-disable-next-line no-template-curly-in-string
 	startLedsCoinPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 1'),
 	// eslint-disable-next-line no-template-curly-in-string
 	startLedsCoinPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
+	//startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
+	//startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
 	// eslint-disable-next-line no-template-curly-in-string
 	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),	
 	// eslint-disable-next-line no-template-curly-in-string
@@ -153,7 +150,7 @@ const schema = yup.object().shape({
 	// eslint-disable-next-line no-template-curly-in-string
 	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin')	
+	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin')
 });
 
 const defaultValues = {
@@ -170,40 +167,35 @@ const defaultValues = {
 	i2cAnalog1219Speed: 400000,
 	i2cAnalog1219Address: 0x40,
 	onBoardLedMode: 0,
-	dualUpPin: -1,
-	dualDownPin: -1,
-	dualLeftPin: -1,
-	dualRightPin: -1,
-	dualDirDpadMode: 0,
-	dualDirCombineMode: 0,
+	//dualUpPin: -1,
+	//dualDownPin: -1,
+	//dualLeftPin: -1,
+	//dualRightPin: -1,
+	//dualDirDpadMode: 0,
+	//dualDirCombineMode: 0,
 	analogAdcPinX : -1,
  	analogAdcPinY : -1,
 	bootselButtonMap: 0,
 	buzzerPin: -1,
 	buzzerVolume: 100,
-	extrabuttonPin: -1,
-	extraButtonMap: 0,
-	playerNumber: 1,
 	AnalogInputEnabled: 0,
 	BoardLedAddonEnabled: 0,
 	BuzzerSpeakerAddonEnabled: 0,
 	BootselButtonAddonEnabled: 0,
-	DualDirectionalInputEnabled: 0,
-	ExtraButtonAddonEnabled: 0,
+	//DualDirectionalInputEnabled: 0,
 	I2CAnalog1219InputEnabled: 0,
 	JSliderInputEnabled: 0,
-	PlayerNumAddonEnabled: 0,
 	ReverseInputEnabled: 0,
 	TurboInputEnabled: 0,
 	startLedsAddonEnabled: 0,
 	startLedsStartPin1: -1,
 	startLedsStartPin2: -1,
-	startLedsStartPin3: -1,
-	startLedsStartPin4: -1,
+	//startLedsStartPin3: -1,
+	//startLedsStartPin4: -1,
 	startLedsCoinPin1: -1,
 	startLedsCoinPin2: -1,
-	startLedsCoinPin3: -1,
-	startLedsCoinPin4: -1,
+	//startLedsCoinPin3: -1,
+	//startLedsCoinPin4: -1,
 	startLedsExtCoinPin: -1,
 	startLedsExtStartPin: -1,
 	startLedsMarqueePin: -1,
@@ -276,16 +268,16 @@ const FormContext = () => {
 			values.i2cAnalog1219Address = parseInt(values.i2cAnalog1219Address);
 		if (!!values.onBoardLedMode)
 			values.onBoardLedMode = parseInt(values.onBoardLedMode);
-		if (!!values.dualDownPin)
-			values.dualDownPin = parseInt(values.dualDownPin);
-		if (!!values.dualUpPin)
-			values.dualUpPin = parseInt(values.dualUpPin);
-		if (!!values.dualLeftPin)
-			values.dualLeftPin = parseInt(values.dualLeftPin);
-		if (!!values.dualRightPin)
-			values.dualRightPin = parseInt(values.dualRightPin);
-		if (!!values.dualDirMode)
-			values.dualDirMode = parseInt(values.dualDirMode);
+		//if (!!values.dualDownPin)
+		//	values.dualDownPin = parseInt(values.dualDownPin);
+		//if (!!values.dualUpPin)
+		//	values.dualUpPin = parseInt(values.dualUpPin);
+		//if (!!values.dualLeftPin)
+		//	values.dualLeftPin = parseInt(values.dualLeftPin);
+		//if (!!values.dualRightPin)
+		//	values.dualRightPin = parseInt(values.dualRightPin);
+		//if (!!values.dualDirMode)
+		//	values.dualDirMode = parseInt(values.dualDirMode);
 		if (!!values.analogAdcPinX)
 			values.analogAdcPinX = parseInt(values.analogAdcPinX);
 		if (!!values.analogAdcPinY)
@@ -296,30 +288,20 @@ const FormContext = () => {
 			values.buzzerPin = parseInt(values.buzzerPin);
 		if (!!values.buzzerVolume)
 			values.buzzerVolume = parseInt(values.buzzerVolume);
-		if (!!values.extraButtonMap)
-			values.extraButtonMap = parseInt(values.extraButtonMap);
-		if (!!values.extrabuttonPin)
-			values.extrabuttonPin = parseInt(values.extrabuttonPin);
-		if (!!values.playerNumber)
-			values.playerNumber = parseInt(values.playerNumber);	
 		if (!!values.AnalogInputEnabled)
 			values.AnalogInputEnabled = parseInt(values.AnalogInputEnabled);
 		if (!!values.BoardLedAddonEnabled)
 			values.BoardLedAddonEnabled = parseInt(values.BoardLedAddonEnabled);
-		if (!!values.BuzzerSpeakerAddonEnabled)
+		if (!!values.BuzzerSpeakerAddonEnabled)		
 			values.BuzzerSpeakerAddonEnabled = parseInt(values.BuzzerSpeakerAddonEnabled);
 		if (!!values.BootselButtonAddonEnabled)
 			values.BootselButtonAddonEnabled = parseInt(values.BootselButtonAddonEnabled);
-		if (!!values.DualDirectionalInputEnabled)
-			values.DualDirectionalInputEnabled = parseInt(values.DualDirectionalInputEnabled);
-		if (!!values.ExtraButtonAddonEnabled)
-			values.ExtraButtonAddonEnabled = parseInt(values.ExtraButtonAddonEnabled);
+		//if (!!values.DualDirectionalInputEnabled)
+		//	values.DualDirectionalInputEnabled = parseInt(values.DualDirectionalInputEnabled);
 		if (!!values.I2CAnalog1219InputEnabled)
 			values.I2CAnalog1219InputEnabled = parseInt(values.I2CAnalog1219InputEnabled);
 		if (!!values.JSliderInputEnabled)
 			values.JSliderInputEnabled = parseInt(values.JSliderInputEnabled);
-		if (!!values.PlayerNumAddonEnabled)
-			values.PlayerNumAddonEnabled = parseInt(values.PlayerNumAddonEnabled);
 		if (!!values.ReverseInputEnabled)
 			values.ReverseInputEnabled = parseInt(values.ReverseInputEnabled);
 		if (!!values.TurboInputEnabled)
@@ -330,18 +312,18 @@ const FormContext = () => {
 			values.startLedsStartPin1 = parseInt(values.startLedsStartPin1);
 		if (!!values.startLedsStartPin2)
 			values.startLedsStartPin2 = parseInt(values.startLedsStartPin2);
-		if (!!values.startLedsStartPin3)
-			values.startLedsStartPin3 = parseInt(values.startLedsStartPin3);
-		if (!!values.startLedsStartPin4)
-			values.startLedsStartPin4 = parseInt(values.startLedsStartPin4);
+		//if (!!values.startLedsStartPin3)
+		//	values.startLedsStartPin3 = parseInt(values.startLedsStartPin3);
+		//if (!!values.startLedsStartPin4)
+		//	values.startLedsStartPin4 = parseInt(values.startLedsStartPin4);
 		if (!!values.startLedsCoinPin1)
 			values.startLedsCoinPin1 = parseInt(values.startLedsCoinPin1);
 		if (!!values.startLedsCoinPin2)
 			values.startLedsCoinPin2 = parseInt(values.startLedsCoinPin2);
-		if (!!values.startLedsCoinPin3)
-			values.startLedsCoinPin3 = parseInt(values.startLedsCoinPin3);
-		if (!!values.startLedsCoinPin4)
-			values.startLedsCoinPin4 = parseInt(values.startLedsCoinPin4);
+		//if (!!values.startLedsCoinPin3)
+		//	values.startLedsCoinPin3 = parseInt(values.startLedsCoinPin3);
+		//if (!!values.startLedsCoinPin4)
+		//	values.startLedsCoinPin4 = parseInt(values.startLedsCoinPin4);
 		if (!!values.startLedsExtStartPin)
 			values.startLedsExtStartPin = parseInt(values.startLedsExtStartPin);
 		if (!!values.startLedsExtCoinPin)
@@ -371,7 +353,7 @@ const FormContext = () => {
 		if (!!values.z680VolumeUpPin)
 			values.z680VolumeUpPin = parseInt(values.z680VolumeUpPin);
 		if (!!values.z680VolumeDownPin)
-			values.z680VolumeDownPin = parseInt(values.z680VolumeDownPin);				
+			values.z680VolumeDownPin = parseInt(values.z680VolumeDownPin);			
 	}, [values, setValues]);
 
 	return null;
@@ -768,99 +750,6 @@ export default function AddonsConfigPage() {
 							onChange={(e) => {handleCheckbox("I2CAnalog1219InputEnabled", values); handleChange(e);}}
 						/>
 					</Section>
-					<Section title="Dual Directional Input">
-						<div
-							id="DualDirectionalInputOptions"
-							hidden={!values.DualDirectionalInputEnabled}>
-						<Row class="mb-3">
-							<FormControl type="number"
-								label="Dual Up Pin"
-								name="dualDirUpPin"
-								className="form-select-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.dualDirUpPin}
-								error={errors.dualDirUpPin}
-								isInvalid={errors.dualDirUpPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-							<FormControl type="number"
-								label="Dual Down Pin"
-								name="dualDirDownPin"
-								className="form-select-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.dualDirDownPin}
-								error={errors.dualDirDownPin}
-								isInvalid={errors.dualDirDownPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-							<FormControl type="number"
-								label="Dual Left Pin"
-								name="dualDirLeftPin"
-								className="form-select-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.dualDirLeftPin}
-								error={errors.dualDirLeftPin}
-								isInvalid={errors.dualDirLeftPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-							<FormControl type="number"
-								label="Dual Right Pin"
-								name="dualDirRightPin"
-								className="form-select-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.dualDirRightPin}
-								error={errors.dualDirRightPin}
-								isInvalid={errors.dualDirRightPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-						</Row>
-						<Row class="mb-3">
-							<FormSelect
-								label="Dual D-Pad Mode"
-								name="dualDirDpadMode"
-								className="form-select-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.dualDirDpadMode}
-								error={errors.dualDirDpadMode}
-								isInvalid={errors.dualDirDpadMode}
-								onChange={handleChange}
-							>
-								{DUAL_STICK_MODES.map((o, i) => <option key={`button-dualDirDpadMode-option-${i}`} value={o.value}>{o.label}</option>)}
-							</FormSelect>
-
-							<FormSelect
-								label="Combination Mode"
-								name="dualDirCombineMode"
-								className="form-select-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.dualDirCombineMode}
-								error={errors.dualDirCombineMode}
-								isInvalid={errors.dualDirCombineMode}
-								onChange={handleChange}
-							>
-								{DUAL_COMBINE_MODES.map((o, i) => <option key={`button-dualDirCombineMode-option-${i}`} value={o.value}>{o.label}</option>)}
-							</FormSelect>
-						</Row>
-						</div>
-						<FormCheck
-							label="Enabled"
-							type="switch"
-							id="DualDirectionalInputButton"
-							reverse="true"
-							error={false}
-							isInvalid={false}
-							checked={Boolean(values.DualDirectionalInputEnabled)}
-							onChange={(e) => {handleCheckbox("DualDirectionalInputEnabled", values); handleChange(e);}}
-						/>
-					</Section>
 					<Section title="Buzzer Speaker">
 						<div
 							id="BuzzerSpeakerAddonOptions"
@@ -903,79 +792,6 @@ export default function AddonsConfigPage() {
 							onChange={(e) => {handleCheckbox("BuzzerSpeakerAddonEnabled", values); handleChange(e);}}
 						/>
 					</Section>
-					<Section title="Extra Button Configuration">
-						<div
-							id="ExtraButtonAddonOptions"
-							hidden={!values.ExtraButtonAddonEnabled}>
-							<Row class="mb-3">
-								<FormControl type="number"
-									label="Extra Button Pin"
-									name="extraButtonPin"
-									className="form-select-sm"
-									groupClassName="col-sm-3 mb-3"
-									value={values.extraButtonPin}
-									error={errors.extraButtonPin}
-									isInvalid={errors.extraButtonPin}
-									onChange={handleChange}
-									min={-1}
-									max={29}
-								/>
-								<FormSelect
-									label="Extra Button"
-									name="extraButtonMap"
-									className="form-select-sm"
-									groupClassName="col-sm-3 mb-3"
-									value={values.extraButtonMap}
-									error={errors.extraButtonMap}
-									isInvalid={errors.extraButtonMap}
-									onChange={handleChange}
-								>
-									{BUTTON_MASKS.map((o, i) => <option key={`extraButtonMap-option-${i}`} value={o.value}>{o.label}</option>)}
-								</FormSelect>
-							</Row>
-						</div>
-						<FormCheck
-							label="Enabled"
-							type="switch"
-							id="ExtraButtonAddonButton"
-							reverse="true"
-							error={false}
-							isInvalid={false}
-							checked={Boolean(values.ExtraButtonAddonEnabled)}
-							onChange={(e) => { handleCheckbox("ExtraButtonAddonEnabled", values); handleChange(e);}}
-						/>
-					</Section>
-					<Section title="Player Number (X-INPUT ONLY)">
-						<div
-							id="PlayerNumAddonOptions"
-							hidden={!values.PlayerNumAddonEnabled}>
-						<p><strong>WARNING: ONLY ENABLE THIS OPTION IF YOU ARE CONNECTING MULTIPLE GP2040-CE DEVICES WITH PLAYER NUMBER ENABLED</strong></p>
-						<Row class="mb-3">
-							<FormControl type="number"
-								label="Player Number"
-								name="playerNumber"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.playerNumber}
-								error={errors.playerNumber}
-								isInvalid={errors.playerNumber}
-								onChange={handleChange}
-								min={1}
-								max={4}
-							/>
-						</Row>
-						</div>
-						<FormCheck
-							label="Enabled"
-							type="switch"
-							id="PlayerNumAddonButton"
-							reverse="true"
-							error={false}
-							isInvalid={false}
-							checked={Boolean(values.PlayerNumAddonEnabled)}
-							onChange={(e) => {handleCheckbox("PlayerNumAddonEnabled", values); handleChange(e);}}
-						/>
-					</Section>
 					<Section title="Start Leds">
 						<div
 							id="startLedsAddonOptions"
@@ -1004,31 +820,7 @@ export default function AddonsConfigPage() {
 								onChange={handleChange}
 								min={-1}
 								max={29}
-							/>
-							<FormControl type="number"
-								name="startLedsStartPin3"
-								label="Start button LED pin Player 3"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsStartPin3}
-								error={errors.startLedsStartPin3}
-								isInvalid={errors.startLedsStartPin3}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-							<FormControl type="number"
-								name="startLedsStartPin4"
-								label="Start button LED pin Player 4"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsStartPin4}
-								error={errors.startLedsStartPin4}
-								isInvalid={errors.startLedsStartPin4}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
+							/>							
 						</Row>
 						<Row class="mb-3">																
 							<FormControl type="number"
@@ -1054,109 +846,85 @@ export default function AddonsConfigPage() {
 								onChange={handleChange}
 								min={-1}
 								max={29}
-							/>
-							<FormControl type="number"
-								name="startLedsCoinPin3"
-								label="Coin button LED pin Player 3"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsCoinPin3}
-								error={errors.startLedsCoinPin3}
-								isInvalid={errors.startLedsCoinPin3}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-							<FormControl type="number"
-								name="startLedsCoinPin4"
-								label="Coin button LED pin Player 4"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsCoinPin4}
-								error={errors.startLedsCoinPin4}
-								isInvalid={errors.startLedsCoinPin4}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>											
+							/>										
 						</Row>
 						<Row class="mb-3">
-						<FormControl type="number"
-								name="startLedsMarqueePin"
-								label="Marquee LED Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsMarqueePin}
-								error={errors.startLedsMarqueePin}
-								isInvalid={errors.startLedsMarqueePin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>	
+							<FormControl type="number"
+									name="startLedsMarqueePin"
+									label="Marquee LED Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.startLedsMarqueePin}
+									error={errors.startLedsMarqueePin}
+									isInvalid={errors.startLedsMarqueePin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>	
 						</Row>
 						<Row class="mb-3">
-						<FormControl type="number"
-								name="startLedsStartBrightness"
-								label="Start LED Brightness"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsStartBrightness}
-								error={errors.startLedsStartBrightness}
-								isInvalid={errors.startLedsStartBrightness}
-								onChange={handleChange}
-								min={0}
-								max={100}
-							/>
-						<FormControl type="number"
-								name="startLedsCoinBrightness"
-								label="Coin LED Brightness"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsCoinBrightness}
-								error={errors.startLedsCoinBrightness}
-								isInvalid={errors.startLedsCoinBrightness}
-								onChange={handleChange}
-								min={0}
-								max={100}
-							/>							
-						<FormControl type="number"
-								name="startLedsMarqueeBrightness"
-								label="Marquee Brightness"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsMarqueeBrightness}
-								error={errors.startLedsMarqueeBrightness}
-								isInvalid={errors.startLedsMarqueeBrightness}
-								onChange={handleChange}
-								min={0}
-								max={100}
-							/>
+							<FormControl type="number"
+									name="startLedsStartBrightness"
+									label="Start LED Brightness"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.startLedsStartBrightness}
+									error={errors.startLedsStartBrightness}
+									isInvalid={errors.startLedsStartBrightness}
+									onChange={handleChange}
+									min={0}
+									max={100}
+								/>
+							<FormControl type="number"
+									name="startLedsCoinBrightness"
+									label="Coin LED Brightness"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.startLedsCoinBrightness}
+									error={errors.startLedsCoinBrightness}
+									isInvalid={errors.startLedsCoinBrightness}
+									onChange={handleChange}
+									min={0}
+									max={100}
+								/>							
+							<FormControl type="number"
+									name="startLedsMarqueeBrightness"
+									label="Marquee Brightness"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.startLedsMarqueeBrightness}
+									error={errors.startLedsMarqueeBrightness}
+									isInvalid={errors.startLedsMarqueeBrightness}
+									onChange={handleChange}
+									min={0}
+									max={100}
+								/>
 						</Row>
 						<Row class="mb-3">														
-						<FormControl type="number"
-								name="startLedsExtStartPin"
-								label="External Start Button Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsExtStartPin}
-								error={errors.startLedsExtStartPin}
-								isInvalid={errors.startLedsExtStartPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-						<FormControl type="number"
-								name="startLedsExtCoinPin"
-								label="External Coin Button Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsExtCoinPin}
-								error={errors.startLedsExtCoinPin}
-								isInvalid={errors.startLedsExtCoinPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>									
+							<FormControl type="number"
+									name="startLedsExtStartPin"
+									label="External Start Button Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.startLedsExtStartPin}
+									error={errors.startLedsExtStartPin}
+									isInvalid={errors.startLedsExtStartPin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>
+							<FormControl type="number"
+									name="startLedsExtCoinPin"
+									label="External Coin Button Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.startLedsExtCoinPin}
+									error={errors.startLedsExtCoinPin}
+									isInvalid={errors.startLedsExtCoinPin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>									
 						</Row>												
 						</div>
 						<FormCheck
@@ -1175,30 +943,30 @@ export default function AddonsConfigPage() {
 							id="pcControlAddonOptions"
 							hidden={!values.pcControlAddonEnabled}>
 						<Row class="mb-3">														
-						<FormControl type="number"
-								name="pcControlPowerPin"
-								label="PC Control Power Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.pcControlPowerPin}
-								error={errors.pcControlPowerPin}
-								isInvalid={errors.pcControlPowerPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-						<FormControl type="number"
-								name="pcControlPowerSwitchPin"
-								label="PC Control Power Switch Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.pcControlPowerSwitchPin}
-								error={errors.pcControlPowerSwitchPin}
-								isInvalid={errors.pcControlPowerSwitchPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>									
+							<FormControl type="number"
+									name="pcControlPowerPin"
+									label="PC Control Power Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.pcControlPowerPin}
+									error={errors.pcControlPowerPin}
+									isInvalid={errors.pcControlPowerPin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>
+							<FormControl type="number"
+									name="pcControlPowerSwitchPin"
+									label="PC Control Power Switch Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.pcControlPowerSwitchPin}
+									error={errors.pcControlPowerSwitchPin}
+									isInvalid={errors.pcControlPowerSwitchPin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>									
 						</Row>												
 						</div>
 						<FormCheck
@@ -1217,68 +985,68 @@ export default function AddonsConfigPage() {
 							id="z680AddonOptions"
 							hidden={!values.z680AddonEnabled}>
 						<Row class="mb-3">														
-						<FormControl type="number"
-								name="z680PowerPin"
-								label="Z680 Power Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.z680PowerPin}
-								error={errors.z680PowerPin}
-								isInvalid={errors.z680PowerPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-						<FormControl type="number"
-								name="z680PowerStatePin"
-								label="Z680 Power State Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.z680PowerStatePin}
-								error={errors.z680PowerStatePin}
-								isInvalid={errors.z680PowerStatePin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
-						<FormControl type="number"
-								name="z680MutePin"
-								label="Z680 Mute Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.z680MutePin}
-								error={errors.z680MutePin}
-								isInvalid={errors.z680MutePin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>
+							<FormControl type="number"
+									name="z680PowerPin"
+									label="Z680 Power Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.z680PowerPin}
+									error={errors.z680PowerPin}
+									isInvalid={errors.z680PowerPin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>
+							<FormControl type="number"
+									name="z680PowerStatePin"
+									label="Z680 Power State Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.z680PowerStatePin}
+									error={errors.z680PowerStatePin}
+									isInvalid={errors.z680PowerStatePin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>
+							<FormControl type="number"
+									name="z680MutePin"
+									label="Z680 Mute Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.z680MutePin}
+									error={errors.z680MutePin}
+									isInvalid={errors.z680MutePin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>
 						</Row>
 						<Row class="mb-3">														
-						<FormControl type="number"
-								name="z680VolumeUpPin"
-								label="Z680 Volume Up Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.z680VolumeUpPin}
-								error={errors.z680VolumeUpPin}
-								isInvalid={errors.z680VolumeUpPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>							
-						<FormControl type="number"
-								name="z680VolumeDownPin"
-								label="Z680 Volume Down Pin"
-								className="form-control-sm"
-								groupClassName="col-sm-3 mb-3"
-								value={values.z680VolumeDownPin}
-								error={errors.z680VolumeDownPin}
-								isInvalid={errors.z680VolumeDownPin}
-								onChange={handleChange}
-								min={-1}
-								max={29}
-							/>																								
+							<FormControl type="number"
+									name="z680VolumeUpPin"
+									label="Z680 Volume Up Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.z680VolumeUpPin}
+									error={errors.z680VolumeUpPin}
+									isInvalid={errors.z680VolumeUpPin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>							
+							<FormControl type="number"
+									name="z680VolumeDownPin"
+									label="Z680 Volume Down Pin"
+									className="form-control-sm"
+									groupClassName="col-sm-3 mb-3"
+									value={values.z680VolumeDownPin}
+									error={errors.z680VolumeDownPin}
+									isInvalid={errors.z680VolumeDownPin}
+									onChange={handleChange}
+									min={-1}
+									max={29}
+								/>																								
 						</Row>												
 						</div>
 						<FormCheck
@@ -1291,7 +1059,7 @@ export default function AddonsConfigPage() {
 							checked={Boolean(values.z680AddonEnabled)}
 							onChange={(e) => {handleCheckbox("z680AddonEnabled", values); handleChange(e);}}
 						/>
-					</Section>					
+					</Section>							
 					<div className="mt-3">
 						<Button type="submit">Save</Button>
 						{saveMessage ? <span className="alert">{saveMessage}</span> : null}
