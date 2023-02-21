@@ -98,9 +98,9 @@ const schema = yup.object().shape({
 	enabled: yup.number().label('Enabled?'),
 	i2cAddress: yup.string().required().label('I2C Address'),
 	// eslint-disable-next-line no-template-curly-in-string
-	sdaPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => true).label('SDA Pin'),
+	sdaPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => true).label('SDA Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	sclPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => true).label('SCL Pin'),
+	sclPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => true).label('SCL Pin'),
 	i2cBlock: yup.number().required().oneOf(I2C_BLOCKS.map(o => o.value)).label('I2C Block'),
 	i2cSpeed: yup.number().required().label('I2C Speed'),
 	flipDisplay: yup.number().oneOf(DISPLAY_FLIP_MODES.map(o => o.value)).label('Flip Display'),

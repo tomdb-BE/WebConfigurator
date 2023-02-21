@@ -58,29 +58,44 @@ const BUTTON_MASKS = [
 ]
 
 const schema = yup.object().shape({
-	turboPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Turbo Pin'),
-	turboPinLED: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Turbo Pin LED'),
-	sliderLSPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider LS Pin'),
-	sliderRSPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider RS Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	turboPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Turbo Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	turboPinLED: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Turbo Pin LED'),
+	// eslint-disable-next-line no-template-curly-in-string
+	sliderLSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider LS Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	sliderRSPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Slider RS Pin'),
 	turboShotCount: yup.number().required().min(5).max(30).label('Turbo Shot Count'),
-	reversePin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Reverse Pin'),
-	reversePinLED: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Reverse Pin LED'),
-	i2cAnalog1219SDAPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('I2C Analog1219 SDA Pin'),
-	i2cAnalog1219SCLPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('I2C Analog1219 SCL Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	reversePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Reverse Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	reversePinLED: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Reverse Pin LED'),
+	// eslint-disable-next-line no-template-curly-in-string
+	i2cAnalog1219SDAPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('I2C Analog1219 SDA Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	i2cAnalog1219SCLPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('I2C Analog1219 SCL Pin'),	
 	i2cAnalog1219Block: yup.number().required().oneOf(I2C_BLOCKS.map(o => o.value)).label('I2C Analog1219 Block'),
 	i2cAnalog1219Speed: yup.number().required().label('I2C Analog1219 Speed'),
 	i2cAnalog1219Address: yup.number().required().label('I2C Analog1219 Address'),
 	onBoardLedMode: yup.number().required().oneOf(ON_BOARD_LED_MODES.map(o => o.value)).label('On-Board LED Mode'),
-	dualDirUpPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Up Pin'),
-	dualDirDownPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Down Pin'),
-	dualDirLeftPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Left Pin'),
-	dualDirRightPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	dualDirUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Up Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	dualDirDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Down Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	dualDirLeftPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Left Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	dualDirRightPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),	
 	dualDirDpadMode : yup.number().required().oneOf(DUAL_STICK_MODES.map(o => o.value)).label('Dual Stick Mode'), 
 	dualDirCombineMode : yup.number().required().oneOf(DUAL_COMBINE_MODES.map(o => o.value)).label('Dual Combination Mode'),
-	analogAdcPinX : yup.number().required().test('', '`${originalValue}` is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin X'),
- 	analogAdcPinY : yup.number().required().test('', '`${originalValue}` is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin Y'),
+	// eslint-disable-next-line no-template-curly-in-string
+	analogAdcPinX : yup.number().required().test('', '${originalValue} is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin X'),
+	// eslint-disable-next-line no-template-curly-in-string
+ 	analogAdcPinY : yup.number().required().test('', '${originalValue} is unavailable/already assigned!', (value) => usedPins.indexOf(value) === -1).label('Analog Stick Pin Y'),
 	bootselButtonMap : yup.number().required().oneOf(BUTTON_MASKS.map(o => o.value)).label('BOOTSEL Button Map'),
-	buzzerPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Buzzer Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	buzzerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Buzzer Pin'),
 	buzzerVolume: yup.number().required().min(0).max(100).label('Buzzer Volume'),
 	AnalogInputEnabled: yup.number().required().label('Analog Input Enabled'),
 	BoardLedAddonEnabled: yup.number().required().label('Board LED Add-On Enabled'),
@@ -92,30 +107,48 @@ const schema = yup.object().shape({
 	ReverseInputEnabled: yup.number().required().label('Reverse Input Enabled'),
 	TurboInputEnabled: yup.number().required().label('Turbo Input Enabled'),
 	startLedsAddonEnabled: yup.number().required().label('Start LEDs Add-On Enabled'),
-	startLedsStartPin1: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 1'),
-	startLedsStartPin2: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 2'),
-	startLedsStartPin3: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
-	startLedsStartPin4: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
-	startLedsCoinPin1: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 1'),
-	startLedsCoinPin2: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
-	startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
-	startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
-	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),	
-	startLedsExtStartPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Start Button Pin'),
-	startLedsExtCoinPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Coin Button Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsStartPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 1'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsStartPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 2'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsStartPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsStartPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsCoinPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 1'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsCoinPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),	
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsExtStartPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Start Button Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	startLedsExtCoinPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Coin Button Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
 	startLedsStartBrightness: yup.number().required().min(0).max(100).label('Start LED Brightness'),
 	startLedsCoinBrightness: yup.number().required().min(0).max(100).label('Coin LED Brightness'),
 	startLedsMarqueeBrightness: yup.number().required().min(0).max(100).label('Marquee LED Brightness'),
 	pcControlAddonEnabled: yup.number().required().label('PC Control Add-On Enabled'),
-	pcControlPowerPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Pin'),
-	pcControlPowerSwitchPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Switch Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	pcControlPowerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	pcControlPowerSwitchPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Switch Pin'),
 	z680AddonEnabled: yup.number().required().label('Z680 Add-On Enabled'),
-	z680PowerPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power Pin'),
-	z680PowerStatePin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power State Pin'),
-	z680MutePin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Mute Pin'),
-	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
-	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '`${originalValue}` is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin'),	
-
+	// eslint-disable-next-line no-template-curly-in-string
+	z680PowerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	z680PowerStatePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power State Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	z680MutePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Mute Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
+	// eslint-disable-next-line no-template-curly-in-string
+	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin')
 });
 
 const defaultValues = {

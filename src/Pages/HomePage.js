@@ -66,8 +66,8 @@ export default function HomePage() {
 					{memoryReport &&
 						<div>
 							<strong>Memory (KB)</strong>
-							<div>Flash: {memoryReport.usedFlash} // {memoryReport.totalFlash} ({memoryReport.percentageFlash}&percnt;)</div>
-							<div>Heap: {memoryReport.usedHeap} // {memoryReport.totalHeap} ({memoryReport.percentageHeap}&percnt;)</div>
+							<div>Flash: {memoryReport.usedFlash} // {memoryReport.totalFlash} ({memoryReport.percentageFlash})%</div>
+							<div>Heap: {memoryReport.usedHeap} // {memoryReport.totalHeap} ({memoryReport.percentageHeap})%</div>
 							<div>Static Allocations: {memoryReport.staticAllocs}</div>
 						</div>
 					}

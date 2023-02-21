@@ -200,7 +200,7 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		z680MutePin: -1,
 		z680VolumeUpPin: -1,
 		z680VolumeDownPin: -1,			
-		usedPins,
+		usedPins
 	});
 });
 
