@@ -112,9 +112,9 @@ const schema = yup.object().shape({
 	z680AddonEnabled: yup.number().required().label('Z680 Add-On Enabled'),
 	z680PowerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power Pin'),
 	z680PowerStatePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Power State Pin'),
-	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
-	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin'),
 	z680MutePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Mute Pin'),
+	z680VolumeUpPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Up Pin'),
+	z680VolumeDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Z680 Volume Down Pin'),	
 
 });
 
@@ -173,9 +173,9 @@ const defaultValues = {
 	z680AddonEnabled: -1,
 	z680PowerPin: -1,
 	z680PowerStatePin: -1,
+	z680MutePin: -1,
 	z680VolumeUpPin: -1,
-	z680VolumeDownPin: -1,
-	z680MutePin: -1
+	z680VolumeDownPin: -1,	
 };
 
 const REVERSE_ACTION = [
@@ -983,12 +983,12 @@ export default function AddonsConfigPage() {
 							/>
 						<FormControl type="number"
 								name="startLedsCoinBrightness"
-								label="Marquee LED Brightness"
+								label="Coin LED Brightness"
 								className="form-control-sm"
 								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsMarqueeBrightness}
-								error={errors.startLedsMarqueeBrightness}
-								isInvalid={errors.startLedsMarqueeBrightness}
+								value={values.startLedsCoinBrightness}
+								error={errors.startLedsCoinBrightness}
+								isInvalid={errors.startLedsCoinBrightness}
 								onChange={handleChange}
 								min={0}
 								max={100}
