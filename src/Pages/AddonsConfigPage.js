@@ -108,33 +108,33 @@ const schema = yup.object().shape({
 	JSliderInputEnabled: yup.number().required().label('JSlider Input Enabled'),
 	ReverseInputEnabled: yup.number().required().label('Reverse Input Enabled'),
 	TurboInputEnabled: yup.number().required().label('Turbo Input Enabled'),
-	startLedsAddonEnabled: yup.number().required().label('Start LEDs Add-On Enabled'),
+	creditledsAddonEnabled: yup.number().required().label('Start LEDs Add-On Enabled'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsStartPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 1'),
+	creditledsStartPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 1'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsStartPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 2'),
+	creditledsStartPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 2'),
 	// eslint-disable-next-line no-template-curly-in-string
-	//startLedsStartPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
+	//creditledsStartPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 3'),
 	// eslint-disable-next-line no-template-curly-in-string
-	//startLedsStartPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
+	//creditledsStartPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Start button LED Pin Player 4'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsCoinPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 1'),
+	creditledsCoinPin1: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 1'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsCoinPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
+	creditledsCoinPin2: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 2'),
 	// eslint-disable-next-line no-template-curly-in-string
-	//startLedsCoinPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
+	//creditledsCoinPin3: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 3'),
 	// eslint-disable-next-line no-template-curly-in-string
-	//startLedsCoinPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
+	//creditledsCoinPin4: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Coin button LED Pin Player 4'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsMarqueePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),	
+	creditledsMarqueePin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Marquee LED Pin'),	
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsExtStartPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Start Button Pin'),
+	creditledsExtStartPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Start Button Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsExtCoinPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Coin Button Pin'),
+	creditledsExtCoinPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('External Coin Button Pin'),
 	// eslint-disable-next-line no-template-curly-in-string
-	startLedsStartBrightness: yup.number().required().min(0).max(100).label('Start LED Brightness'),
-	startLedsCoinBrightness: yup.number().required().min(0).max(100).label('Coin LED Brightness'),
-	startLedsMarqueeBrightness: yup.number().required().min(0).max(100).label('Marquee LED Brightness'),
+	creditledsStartBrightness: yup.number().required().min(0).max(100).label('Start LED Brightness'),
+	creditledsCoinBrightness: yup.number().required().min(0).max(100).label('Coin LED Brightness'),
+	creditledsMarqueeBrightness: yup.number().required().min(0).max(100).label('Marquee LED Brightness'),
 	pcControlAddonEnabled: yup.number().required().label('PC Control Add-On Enabled'),
 	// eslint-disable-next-line no-template-curly-in-string
 	pcControlPowerPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('PC Control Power Pin'),
@@ -187,21 +187,21 @@ const defaultValues = {
 	JSliderInputEnabled: 0,
 	ReverseInputEnabled: 0,
 	TurboInputEnabled: 0,
-	startLedsAddonEnabled: 0,
-	startLedsStartPin1: -1,
-	startLedsStartPin2: -1,
-	//startLedsStartPin3: -1,
-	//startLedsStartPin4: -1,
-	startLedsCoinPin1: -1,
-	startLedsCoinPin2: -1,
-	//startLedsCoinPin3: -1,
-	//startLedsCoinPin4: -1,
-	startLedsExtCoinPin: -1,
-	startLedsExtStartPin: -1,
-	startLedsMarqueePin: -1,
-	startLedsStartBrightness: -1,
-	startLedsCoinBrightness: -1,
-	startLedsMarqueeBrightness: -1,
+	creditledsAddonEnabled: 0,
+	creditledsStartPin1: -1,
+	creditledsStartPin2: -1,
+	//creditledsStartPin3: -1,
+	//creditledsStartPin4: -1,
+	creditledsCoinPin1: -1,
+	creditledsCoinPin2: -1,
+	//creditledsCoinPin3: -1,
+	//creditledsCoinPin4: -1,
+	creditledsExtCoinPin: -1,
+	creditledsExtStartPin: -1,
+	creditledsMarqueePin: -1,
+	creditledsStartBrightness: -1,
+	creditledsCoinBrightness: -1,
+	creditledsMarqueeBrightness: -1,
 	pcControlAddonEnabled: -1,
 	pcControlPowerPin: -1,
 	pcControlPowerSwitchPin: -1,
@@ -306,36 +306,36 @@ const FormContext = () => {
 			values.ReverseInputEnabled = parseInt(values.ReverseInputEnabled);
 		if (!!values.TurboInputEnabled)
 			values.TurboInputEnabled = parseInt(values.TurboInputEnabled);
-		if (!!values.startLedsAddonEnabled)
-			values.startLedsAddonEnabled = parseInt(values.startLedsAddonEnabled);
-		if (!!values.startLedsStartPin1)
-			values.startLedsStartPin1 = parseInt(values.startLedsStartPin1);
-		if (!!values.startLedsStartPin2)
-			values.startLedsStartPin2 = parseInt(values.startLedsStartPin2);
-		//if (!!values.startLedsStartPin3)
-		//	values.startLedsStartPin3 = parseInt(values.startLedsStartPin3);
-		//if (!!values.startLedsStartPin4)
-		//	values.startLedsStartPin4 = parseInt(values.startLedsStartPin4);
-		if (!!values.startLedsCoinPin1)
-			values.startLedsCoinPin1 = parseInt(values.startLedsCoinPin1);
-		if (!!values.startLedsCoinPin2)
-			values.startLedsCoinPin2 = parseInt(values.startLedsCoinPin2);
-		//if (!!values.startLedsCoinPin3)
-		//	values.startLedsCoinPin3 = parseInt(values.startLedsCoinPin3);
-		//if (!!values.startLedsCoinPin4)
-		//	values.startLedsCoinPin4 = parseInt(values.startLedsCoinPin4);
-		if (!!values.startLedsExtStartPin)
-			values.startLedsExtStartPin = parseInt(values.startLedsExtStartPin);
-		if (!!values.startLedsExtCoinPin)
-			values.startLedsExtCoinPin = parseInt(values.startLedsExtCoinPin);
-		if (!!values.startLedsMarqueePin)
-			values.startLedsMarqueePin = parseInt(values.startLedsMarqueePin);
-		if (!!values.startLedsStartBrightness)
-			values.startLedsStartBrightness = parseInt(values.startLedsStartBrightness);
-		if (!!values.startLedsCoinBrightness)
-			values.startLedsCoinBrightness = parseInt(values.startLedsCoinBrightness);
-		if (!!values.startLedsMarqueeBrightness)
-			values.startLedsMarqueeBrightness = parseInt(values.startLedsMarqueeBrightness);			
+		if (!!values.creditledsAddonEnabled)
+			values.creditledsAddonEnabled = parseInt(values.creditledsAddonEnabled);
+		if (!!values.creditledsStartPin1)
+			values.creditledsStartPin1 = parseInt(values.creditledsStartPin1);
+		if (!!values.creditledsStartPin2)
+			values.creditledsStartPin2 = parseInt(values.creditledsStartPin2);
+		//if (!!values.creditledsStartPin3)
+		//	values.creditledsStartPin3 = parseInt(values.creditledsStartPin3);
+		//if (!!values.creditledsStartPin4)
+		//	values.creditledsStartPin4 = parseInt(values.creditledsStartPin4);
+		if (!!values.creditledsCoinPin1)
+			values.creditledsCoinPin1 = parseInt(values.creditledsCoinPin1);
+		if (!!values.creditledsCoinPin2)
+			values.creditledsCoinPin2 = parseInt(values.creditledsCoinPin2);
+		//if (!!values.creditledsCoinPin3)
+		//	values.creditledsCoinPin3 = parseInt(values.creditledsCoinPin3);
+		//if (!!values.creditledsCoinPin4)
+		//	values.creditledsCoinPin4 = parseInt(values.creditledsCoinPin4);
+		if (!!values.creditledsExtStartPin)
+			values.creditledsExtStartPin = parseInt(values.creditledsExtStartPin);
+		if (!!values.creditledsExtCoinPin)
+			values.creditledsExtCoinPin = parseInt(values.creditledsExtCoinPin);
+		if (!!values.creditledsMarqueePin)
+			values.creditledsMarqueePin = parseInt(values.creditledsMarqueePin);
+		if (!!values.creditledsStartBrightness)
+			values.creditledsStartBrightness = parseInt(values.creditledsStartBrightness);
+		if (!!values.creditledsCoinBrightness)
+			values.creditledsCoinBrightness = parseInt(values.creditledsCoinBrightness);
+		if (!!values.creditledsMarqueeBrightness)
+			values.creditledsMarqueeBrightness = parseInt(values.creditledsMarqueeBrightness);			
 		if (!!values.pcControlAddonEnabled)
 			values.pcControlAddonEnabled = parseInt(values.pcControlAddonEnabled);
 		if (!!values.pcControlPowerPin)
@@ -794,29 +794,29 @@ export default function AddonsConfigPage() {
 					</Section>
 					<Section title="Start Leds">
 						<div
-							id="startLedsAddonOptions"
-							hidden={!values.startLedsAddonEnabled}>
+							id="creditledsAddonOptions"
+							hidden={!values.creditledsAddonEnabled}>
 						<Row class="mb-3">	
 							<FormControl type="number"
-								name="startLedsStartPin1"
+								name="creditledsStartPin1"
 								label="Start button LED pin Player 1"
 								className="form-control-sm"
 								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsStartPin1}
-								error={errors.startLedsStartPin1}
-								isInvalid={errors.startLedsStartPin1}
+								value={values.creditledsStartPin1}
+								error={errors.creditledsStartPin1}
+								isInvalid={errors.creditledsStartPin1}
 								onChange={handleChange}
 								min={-1}
 								max={29}
 							/>
 							<FormControl type="number"
-								name="startLedsStartPin2"
+								name="creditledsStartPin2"
 								label="Start button LED pin Player 2"
 								className="form-control-sm"
 								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsStartPin2}
-								error={errors.startLedsStartPin2}
-								isInvalid={errors.startLedsStartPin2}
+								value={values.creditledsStartPin2}
+								error={errors.creditledsStartPin2}
+								isInvalid={errors.creditledsStartPin2}
 								onChange={handleChange}
 								min={-1}
 								max={29}
@@ -824,25 +824,25 @@ export default function AddonsConfigPage() {
 						</Row>
 						<Row class="mb-3">																
 							<FormControl type="number"
-								name="startLedsCoinPin1"
+								name="creditledsCoinPin1"
 								label="Coin button LED pin Player 1"
 								className="form-control-sm"
 								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsCoinPin1}
-								error={errors.startLedsCoinPin1}
-								isInvalid={errors.startLedSCoinPin1}
+								value={values.creditledsCoinPin1}
+								error={errors.creditledsCoinPin1}
+								isInvalid={errors.creditledsCoinPin1}
 								onChange={handleChange}
 								min={-1}
 								max={29}
 							/>							
 							<FormControl type="number"
-								name="startLedsCoinPin2"
+								name="creditledsCoinPin2"
 								label="Coin button LED pin Player 2"
 								className="form-control-sm"
 								groupClassName="col-sm-3 mb-3"
-								value={values.startLedsCoinPin2}
-								error={errors.startLedsCoinPin2}
-								isInvalid={errors.startLedsCoinPin2}
+								value={values.creditledsCoinPin2}
+								error={errors.creditledsCoinPin2}
+								isInvalid={errors.creditledsCoinPin2}
 								onChange={handleChange}
 								min={-1}
 								max={29}
@@ -850,13 +850,13 @@ export default function AddonsConfigPage() {
 						</Row>
 						<Row class="mb-3">
 							<FormControl type="number"
-									name="startLedsMarqueePin"
+									name="creditledsMarqueePin"
 									label="Marquee LED Pin"
 									className="form-control-sm"
 									groupClassName="col-sm-3 mb-3"
-									value={values.startLedsMarqueePin}
-									error={errors.startLedsMarqueePin}
-									isInvalid={errors.startLedsMarqueePin}
+									value={values.creditledsMarqueePin}
+									error={errors.creditledsMarqueePin}
+									isInvalid={errors.creditledsMarqueePin}
 									onChange={handleChange}
 									min={-1}
 									max={29}
@@ -864,37 +864,37 @@ export default function AddonsConfigPage() {
 						</Row>
 						<Row class="mb-3">
 							<FormControl type="number"
-									name="startLedsStartBrightness"
+									name="creditledsStartBrightness"
 									label="Start LED Brightness"
 									className="form-control-sm"
 									groupClassName="col-sm-3 mb-3"
-									value={values.startLedsStartBrightness}
-									error={errors.startLedsStartBrightness}
-									isInvalid={errors.startLedsStartBrightness}
+									value={values.creditledsStartBrightness}
+									error={errors.creditledsStartBrightness}
+									isInvalid={errors.creditledsStartBrightness}
 									onChange={handleChange}
 									min={0}
 									max={100}
 								/>
 							<FormControl type="number"
-									name="startLedsCoinBrightness"
+									name="creditledsCoinBrightness"
 									label="Coin LED Brightness"
 									className="form-control-sm"
 									groupClassName="col-sm-3 mb-3"
-									value={values.startLedsCoinBrightness}
-									error={errors.startLedsCoinBrightness}
-									isInvalid={errors.startLedsCoinBrightness}
+									value={values.creditledsCoinBrightness}
+									error={errors.creditledsCoinBrightness}
+									isInvalid={errors.creditledsCoinBrightness}
 									onChange={handleChange}
 									min={0}
 									max={100}
 								/>							
 							<FormControl type="number"
-									name="startLedsMarqueeBrightness"
+									name="creditledsMarqueeBrightness"
 									label="Marquee Brightness"
 									className="form-control-sm"
 									groupClassName="col-sm-3 mb-3"
-									value={values.startLedsMarqueeBrightness}
-									error={errors.startLedsMarqueeBrightness}
-									isInvalid={errors.startLedsMarqueeBrightness}
+									value={values.creditledsMarqueeBrightness}
+									error={errors.creditledsMarqueeBrightness}
+									isInvalid={errors.creditledsMarqueeBrightness}
 									onChange={handleChange}
 									min={0}
 									max={100}
@@ -902,25 +902,25 @@ export default function AddonsConfigPage() {
 						</Row>
 						<Row class="mb-3">														
 							<FormControl type="number"
-									name="startLedsExtStartPin"
+									name="creditledsExtStartPin"
 									label="External Start Button Pin"
 									className="form-control-sm"
 									groupClassName="col-sm-3 mb-3"
-									value={values.startLedsExtStartPin}
-									error={errors.startLedsExtStartPin}
-									isInvalid={errors.startLedsExtStartPin}
+									value={values.creditledsExtStartPin}
+									error={errors.creditledsExtStartPin}
+									isInvalid={errors.creditledsExtStartPin}
 									onChange={handleChange}
 									min={-1}
 									max={29}
 								/>
 							<FormControl type="number"
-									name="startLedsExtCoinPin"
+									name="creditledsExtCoinPin"
 									label="External Coin Button Pin"
 									className="form-control-sm"
 									groupClassName="col-sm-3 mb-3"
-									value={values.startLedsExtCoinPin}
-									error={errors.startLedsExtCoinPin}
-									isInvalid={errors.startLedsExtCoinPin}
+									value={values.creditledsExtCoinPin}
+									error={errors.creditledsExtCoinPin}
+									isInvalid={errors.creditledsExtCoinPin}
 									onChange={handleChange}
 									min={-1}
 									max={29}
@@ -930,12 +930,12 @@ export default function AddonsConfigPage() {
 						<FormCheck
 							label="Enabled"
 							type="switch"
-							id="startLedsAddonButton"
+							id="creditledsAddonButton"
 							reverse="true"
 							error={false}
 							isInvalid={false}
-							checked={Boolean(values.startLedsAddonEnabled)}
-							onChange={(e) => {handleCheckbox("startLedsAddonEnabled", values); handleChange(e);}}
+							checked={Boolean(values.creditledsAddonEnabled)}
+							onChange={(e) => {handleCheckbox("creditledsAddonEnabled", values); handleChange(e);}}
 						/>
 					</Section>	
 					<Section title="PC Control">
